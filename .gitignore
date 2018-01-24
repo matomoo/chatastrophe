@@ -38,4 +38,4 @@ Thumbs.db
 
 node_modules
 build
-/public/secrets.js
+public/secrets.js
