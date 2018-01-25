@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import LoginContainer from './LoginContainer';
-import './../app.css';
+import './app.css';
 
 class App extends Component {
+  constructor () {
+    super();
+    this.state = { user: null };
+
+    this.componentDidMount = () => {
+      firebase.auth().onAuthStateChange((user) => {
+        if (user) {
+          this.setState({ user });
+        }
+      });
+    }
+
+  }
 
   render() {
     return (
-      <div id="container" className="inner-container">
+      <div id="container" >
         <LoginContainer />
       </div>
     );

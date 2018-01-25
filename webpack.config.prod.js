@@ -71,11 +71,5 @@ module.exports = {
     new ManifestPlugin({
       filename: 'assets-manifest.json',
     })
-  ],
-  devServer: {
-    contentBase: "./public",
-    historyApiFallback: true,
-    inline: true,
-    hot: true
-  }
+  ]
 };
