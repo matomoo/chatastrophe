@@ -14,11 +14,23 @@ class LoginContainer extends Component {
       this.setState({ password: event.target.value });
     };
 
+    this.handleSubmit = (event) => {
+      event.preventDefault();
+      this.setState({ error: '' });
+      if(this.state.email && this.state.password){
+        this.login();
+      } else {
+        this.setState({ error: 'Please fill in both fields' });
+      }
+    };
+
     this.login = () => {
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(res => {console.log(res); })
-        .catch(err => {
-          if (err.code === 'auth/user-not-found' ) {
+        .then(res => {
+          this.onLogin();
+        })
+        .catch(error => {
+          if (error.code === 'auth/user-not-found' ) {
             this.signup();
           } else {
             this.setState({ error: 'Error logging in.' })
@@ -31,7 +43,7 @@ class LoginContainer extends Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then( res => {
-          console.log(res);
+          this.onLogin();
         })
         .catch( error => {
           console.log(error);
@@ -39,15 +51,11 @@ class LoginContainer extends Component {
         });
     }
 
-    this.handleSubmit = (event) => {
-      event.preventDefault();
-      this.setState({ error: '' });
-      if(this.state.email && this.state.password){
-        this.login();
-      } else {
-        this.setState({ error: 'Please fill in both fields' });
-      }
-    };
+    this.onLogin = () => {
+      this.props.history.push('/');
+    }
+
+
   }
 
   render() {
